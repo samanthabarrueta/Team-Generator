@@ -1,7 +1,8 @@
-// const Manager = require("Manager");
+const Manager = require("./lib/Manager");
 // const Engineer = require("Engineer");
 // const Intern = require("Intern");
 const inquirer = require("inquirer");
+const Employee = require("./lib/Employee");
 // const path = require("path");
 // const fs = require("fs");
 
@@ -10,8 +11,7 @@ const inquirer = require("inquirer");
 
 // const render = require("htmlRenderer");
 
-const employeeInfo = () => {
-    inquirer.prompt([
+const questions = [
         {
             type: 'input',
             name: 'name',
@@ -37,39 +37,31 @@ const employeeInfo = () => {
             type: 'input',
             name: 'office',
             message: 'What is the manager\'s office number?',
-            when: function(answers) {
-                return answers.role ==="Manager";
-            }
+            when: answers => answers.role === "Manager"
         },
         {
             type: 'input',
             name: 'github',
             message: 'What is this engineers\'s github username?',
-            when: function(answers) {
-                return answers.role ==="Engineer";
-            }
-
+            when: answers => answers.role === "Engineer"
         },
         {
             type: 'input',
             name: 'school',
             message: 'Where did this intern go to school?',
-            when: function(answers) {
-                return answers.role ==="Intern";
-            }
+            when: answers => answers.role === "Intern"
         }
-    ])
-    .then((answer) => {
+    ]
+    inquirer.prompt(questions).then(answer => {
         const employee = {
             name: answer.name,
             email: answer.email,
             role: answer.role
         }
-        console.log(employee)
-    })
-}
+        console.log(employee)   
+    });
 
-employeeInfo();
+
 
 
 // After you have your html, you're now ready to create an HTML file using the HTML
