@@ -61,7 +61,11 @@ const questions = [
             const { name, id, email, github } = answers;
             employee = new Engineer(name, id, email, github);
             console.log(employee)
-        } 
+        } else if (answers.role === 'Intern') {
+            const { name, id, email, school } = answers;
+            employee = new Intern(name, id, email, school);
+            console.log(employee)
+        }
     });
 
 
