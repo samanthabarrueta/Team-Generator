@@ -10,8 +10,10 @@ const Employee = require('./lib/Employee');
 // const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 // const render = require("htmlRenderer");
+const employees = [];
 
-const questions = [
+const generateEmployees = () => {
+    const questions = [
         {
             type: 'input',
             name: 'name',
@@ -50,24 +52,38 @@ const questions = [
             name: 'school',
             message: 'Where did this intern go to school?',
             when: answers => answers.role === 'Intern'
+        },
+        {
+            type: 'list',
+            name: 'continue',
+            message: 'Would you like to add another employee?',
+            choices: ['yes', 'no']
         }
     ]
     inquirer.prompt(questions).then(answers => {   
         if (answers.role === 'Manager') {
             const { name, id, email, officeNumber } = answers;
             employee = new Manager(name, id, email, officeNumber);
-            console.log(employee)
+            employees.push(employee);
         } else if (answers.role === 'Engineer') {
             const { name, id, email, github } = answers;
             employee = new Engineer(name, id, email, github);
-            console.log(employee)
+            employees.push(employee);
         } else if (answers.role === 'Intern') {
             const { name, id, email, school } = answers;
             employee = new Intern(name, id, email, school);
-            console.log(employee)
+            employees.push(employee);
+        }
+
+        if (answers.continue === 'yes') {
+            generateEmployees();
+        } else if (answers.continue === 'no') {
+            console.log(employees)
         }
     });
+}
 
+generateEmployees();
 
 
 // After you have your html, you're now ready to create an HTML file using the HTML
