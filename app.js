@@ -3,13 +3,13 @@ const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 const inquirer = require('inquirer');
 const Employee = require('./lib/Employee');
-// const path = require("path");
-// const fs = require("fs");
+const path = require('path');
+const fs = require('fs');
 
-// const OUTPUT_DIR = path.resolve(__dirname, "output");
-// const outputPath = path.join(OUTPUT_DIR, "team.html");
+const OUTPUT_DIR = path.resolve(__dirname, 'output');
+const outputPath = path.join(OUTPUT_DIR, 'team.html');
 
-// const render = require("htmlRenderer");
+const render = require('./lib/htmlRenderer');
 const employees = [];
 
 const generateEmployees = () => {
@@ -78,7 +78,10 @@ const generateEmployees = () => {
         if (answers.continue === 'yes') {
             generateEmployees();
         } else if (answers.continue === 'no') {
-            console.log(employees)
+            fs.writeFile(outputPath, render(employees), (err) => {
+                if (err) throw err;
+                console.log('Saved!');
+            });
         }
     });
 }
