@@ -35,32 +35,30 @@ const questions = [
         },
         {
             type: 'input',
-            name: 'office',
+            name: 'officeNumber',
             message: 'What is the manager\'s office number?',
-            when: answers => answers.role === "Manager"
+            when: answers => answers.role === 'Manager'
         },
         {
             type: 'input',
             name: 'github',
             message: 'What is this engineers\'s github username?',
-            when: answers => answers.role === "Engineer"
+            when: answers => answers.role === 'Engineer'
         },
         {
             type: 'input',
             name: 'school',
             message: 'Where did this intern go to school?',
-            when: answers => answers.role === "Intern"
+            when: answers => answers.role === 'Intern'
         }
     ]
-    inquirer.prompt(questions).then(answer => {
-        const employee = {
-            name: answer.name,
-            email: answer.email,
-            role: answer.role
+    inquirer.prompt(questions).then(answers => {   
+        if (answers.role === 'Manager') {
+            const { name, id, email, officeNumber } = answers;
+            employee = new Manager(name, id, email, officeNumber);
+            console.log(employee)
         }
-        console.log(employee)   
     });
-
 
 
 
