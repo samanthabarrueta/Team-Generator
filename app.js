@@ -41,7 +41,7 @@ const questions = [
         },
         {
             type: 'input',
-            name: 'gitHubUser',
+            name: 'github',
             message: 'What is this engineers\'s github username?',
             when: answers => answers.role === 'Engineer'
         },
@@ -58,10 +58,10 @@ const questions = [
             employee = new Manager(name, id, email, officeNumber);
             console.log(employee)
         } else if (answers.role === 'Engineer') {
-            const { name, id, email, gitHubUser } = answers;
-            employee = new Engineer(name, id, email, gitHubUser);
+            const { name, id, email, github } = answers;
+            employee = new Engineer(name, id, email, github);
             console.log(employee)
-        }
+        } 
     });
 
 
