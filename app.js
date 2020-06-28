@@ -1,8 +1,8 @@
-const Manager = require("./lib/Manager");
-const Engineer = require("./lib/Engineer");
-const Intern = require("./lib/Intern");
-const inquirer = require("inquirer");
-const Employee = require("./lib/Employee");
+const Manager = require('./lib/Manager');
+const Engineer = require('./lib/Engineer');
+const Intern = require('./lib/Intern');
+const inquirer = require('inquirer');
+const Employee = require('./lib/Employee');
 // const path = require("path");
 // const fs = require("fs");
 
@@ -41,7 +41,7 @@ const questions = [
         },
         {
             type: 'input',
-            name: 'github',
+            name: 'gitHubUser',
             message: 'What is this engineers\'s github username?',
             when: answers => answers.role === 'Engineer'
         },
@@ -57,6 +57,10 @@ const questions = [
             const { name, id, email, officeNumber } = answers;
             employee = new Manager(name, id, email, officeNumber);
             console.log(employee)
+        } else if (answers.role === 'Engineer') {
+            const { name, id, email, gitHubUser } = answers;
+            employee = new Engineer(name, id, email, gitHubUser);
+            console.log(employee)
         }
     });
 
@@ -67,7 +71,3 @@ const questions = [
 // `output` folder. You can use the variable `outputPath` above target this location.
 // Hint: you may need to check if the `output` folder exists and create it if it
 // does not.
-
-// HINT: each employee type (manager, engineer, or intern) has slightly different
-// information; write your code to ask different questions via inquirer depending on
-// employee type.
